@@ -1,5 +1,5 @@
-# Randall Munroe Comics VKontakte
- This program automatically posts a random comics image from [xkcd.com](https://xkcd.com) to user's pre-created group on [VK](https://vk.com/about).
+# Randall Munroe Comics publisher
+ This program automatically posts a random comics image from [Randall Munroe Comics](https://xkcd.com) on user's pre-created community wall on [VK](https://vk.com/about).
  
 ## Getting started
 
