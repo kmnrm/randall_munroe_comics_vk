@@ -27,23 +27,19 @@ def get_comics_name(comics_number):
     return comics_name
 
 
-def fetch_comics(comics_number):
-    url = 'https://xkcd.com/{}/info.0.json'.format(comics_number)
+def fetch_random_comics_for_group(group_name, vk_access_token):
+    last_comics_number = get_last_xkcd_comics_number()
+    random_comics_number = get_random_comics_number(last_comics_number)
+    save_comics_number_to_file(random_comics_number)
+    url = 'https://xkcd.com/{}/info.0.json'.format(random_comics_number)
     response = requests.get(url)
     response.raise_for_status()
     response = response.json()
     comics_image = response['img']
     comics_name = response['title']
     comics_name += '.png'
-    save_image(comics_image, comics_name)
+    save_image(comics_image, comics_name)    
     return comics_name
-
-
-def fetch_random_comics_for_group(group_name, vk_access_token):
-    last_comics_number = get_last_xkcd_comics_number()
-    random_comics_number = get_random_comics_number(last_comics_number)
-    save_comics_number_to_file(random_comics_number)
-    return fetch_comics(random_comics_number)
 
 
 def get_random_comics_number(last_comics_number):
@@ -52,6 +48,7 @@ def get_random_comics_number(last_comics_number):
     while str(random_comics_number) in posted_comics_nums:
         random_comics_number = random.randint(1, last_comics_number)
     return random_comics_number
+
 
 def get_posted_comics_nums():
     posted_comics_nums = []
