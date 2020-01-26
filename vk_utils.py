@@ -74,8 +74,11 @@ def upload_comics(comics_name, group_name, vk_access_token):
         response_text = response.text
         check_response(response_text)
     uploaded_comics = response.json()
-    os.remove(comics_name)
     return uploaded_comics
+
+
+def remove_comics_image_from_catalog(comics_name):
+    os.remove(comics_name)
 
 
 def save_comics_for_group(comics_name, group_name, vk_access_token):
