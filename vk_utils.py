@@ -4,6 +4,11 @@ import requests
 VK_API = 'https://api.vk.com/method/'
 VERSION = '5.103'
 
+def check_response(response):
+    if 'error' in response:
+        raise requests.exceptions.HTTPError(response)
+
+
 def get_group_id(group_name, vk_access_token):
     method = 'groups.get'
     groups_url = '{}{}'.format(VK_API, method)
@@ -14,7 +19,8 @@ def get_group_id(group_name, vk_access_token):
         'access_token': vk_access_token
     }
     response = requests.get(groups_url, params=payload)
-    response.raise_for_status()
+    response_text = response.text
+    check_response(response_text)
     response = response.json()
     groups = response['response']['items']
     for group in groups:
@@ -35,6 +41,8 @@ def get_posted_comics_names(group_name, vk_access_token):
         'access_token': vk_access_token
     }
     response = requests.get(request_url, params=payload)
+    response_text = response.text
+    check_response(response_text)
     response = response.json()
     posts = response['response']['items']
     comics_names = [post['text'] for post in posts]
@@ -51,7 +59,8 @@ def get_image_upload_url(group_name, vk_access_token):
         'access_token': vk_access_token
         }
     response = requests.get(request_url, params=payload)
-    response.raise_for_status()
+    response_text = response.text
+    check_response(response_text)
     response = response.json()
     upload_url = response['response']['upload_url']
     return upload_url
@@ -62,7 +71,8 @@ def upload_comics(comics_name, group_name, vk_access_token):
     with open(comics_name, 'rb') as comics:
         files = {'photo': comics}
         response = requests.post(upload_url, files=files)
-        response.raise_for_status()
+        response_text = response.text
+        check_response(response_text)
     uploaded_comics = response.json()
     os.remove(comics_name)
     return uploaded_comics
@@ -82,7 +92,8 @@ def save_comics_for_group(comics_name, group_name, vk_access_token):
         'access_token': vk_access_token
     }
     response = requests.post(post_url, params=params)
-    response.raise_for_status()
+    response_text = response.text
+    check_response(response_text)
     saved_comics = response.json()
     return saved_comics
 
@@ -103,4 +114,5 @@ def post_comics_on_groupwall(comics_name, group_name, vk_access_token):
         'access_token': vk_access_token
     }
     response = requests.post(request_url, params=params)
-    response.raise_for_status()
+    response_text = response.text
+    check_response(response_text)
