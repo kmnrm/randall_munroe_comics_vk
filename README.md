@@ -57,6 +57,8 @@ You can find your community on [Communities](https://vk.com/groups) page.
 
 Comics images are fetched by their comics numbers.
 
+All the posted comics' numbers are to be stored in `posted_comics.txt` file. If there is an error that stops execution, the number of the comic that was failed to be uploaded is going to be saved anyway. 
+
 Each post has a title which is the same as comic title.
 
 This program works with [xkcd json](https://xkcd.com/json.html) and [vk.com API](https://vk.com/dev).
