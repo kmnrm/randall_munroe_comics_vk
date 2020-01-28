@@ -27,7 +27,7 @@ def get_comics_name(comics_number):
     return comics_name
 
 
-def fetch_random_comics_for_group(group_name, vk_access_token):
+def fetch_random_comics_for_group():
     last_comics_number = get_last_xkcd_comics_number()
     random_comics_number = get_random_comics_number(last_comics_number)
     save_comics_number_to_file(random_comics_number)
